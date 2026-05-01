@@ -1,0 +1,130 @@
+#mc-panel {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 240px;
+  max-height: 80vh;
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  z-index: 2147483647;
+  overflow: hidden;
+  transition: height 0.2s ease;
+}
+
+#mc-panel.mc-collapsed {
+  height: 40px !important;
+}
+
+#mc-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: #4a90d9;
+  color: #ffffff;
+  cursor: grab;
+  user-select: none;
+  font-size: 13px;
+  font-weight: 600;
+  height: 40px;
+  box-sizing: border-box;
+}
+
+#mc-panel-header:active {
+  cursor: grabbing;
+}
+
+#mc-panel-header span {
+  pointer-events: none;
+}
+
+#mc-toggle-btn {
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0 4px;
+  line-height: 1;
+}
+
+#mc-panel-body {
+  padding: 8px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  max-height: calc(80vh - 40px);
+  overflow-y: auto;
+}
+
+#mc-panel.mc-collapsed #mc-panel-body {
+  display: none;
+}
+
+.mc-counter-btn {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 6px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background: #f8f9fa;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+  font-family: inherit;
+  min-height: 56px;
+}
+
+.mc-counter-btn:hover {
+  background: #e8f0fe;
+  border-color: #4a90d9;
+}
+
+.mc-counter-btn:active {
+  transform: scale(0.96);
+  background: #d2e3fc;
+}
+
+.mc-counter-remove {
+  position: absolute;
+  top: 2px;
+  right: 4px;
+  font-size: 12px;
+  color: #999;
+  cursor: pointer;
+  line-height: 1;
+  padding: 2px;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.mc-counter-btn:hover .mc-counter-remove {
+  opacity: 1;
+}
+
+.mc-counter-remove:hover {
+  color: #e74c3c;
+}
+
+.mc-counter-label {
+  font-size: 11px;
+  color: #555;
+  margin-bottom: 4px;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 90px;
+}
+
+.mc-counter-value {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+

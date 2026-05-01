@@ -1,0 +1,130 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 320px;
+  min-height: 100px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #ffffff;
+  color: #1a1a1a;
+}
+
+.container {
+  padding: 16px;
+}
+
+h1 {
+  font-size: 16px;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+#counters-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.counter-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.counter-name-input {
+  flex: 1;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  padding: 4px 6px;
+  font-size: 13px;
+  font-family: inherit;
+  color: #333;
+  background: transparent;
+}
+
+.counter-name-input:hover {
+  border-color: #ddd;
+}
+
+.counter-name-input:focus {
+  outline: none;
+  border-color: #4a90d9;
+  background: #fff;
+}
+
+.counter-value {
+  font-weight: 600;
+  font-size: 14px;
+  color: #4a90d9;
+  min-width: 28px;
+  text-align: right;
+}
+
+.counter-remove {
+  background: none;
+  border: none;
+  color: #ccc;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 0 2px;
+  line-height: 1;
+}
+
+.counter-remove:hover {
+  color: #e74c3c;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+#add-btn {
+  padding: 6px 16px;
+  background: #4a90d9;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+#add-btn:hover {
+  background: #3a7bc8;
+}
+
+#reset-btn {
+  padding: 6px 16px;
+  background: #e74c3c;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+#reset-btn:hover {
+  background: #c0392b;
+}
+
+#stats-btn {
+  padding: 6px 16px;
+  background: #5b6abf;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+#stats-btn:hover {
+  background: #4a59a8;
+}

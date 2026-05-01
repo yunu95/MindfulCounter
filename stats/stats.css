@@ -1,0 +1,165 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #f5f5f5;
+  color: #1a1a1a;
+  padding: 40px;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 24px;
+}
+
+#controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+#counter-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+#counter-selector label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 16px;
+  font-size: 13px;
+  cursor: pointer;
+  user-select: none;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+#counter-selector label:hover {
+  border-color: #4a90d9;
+}
+
+#counter-selector input[type="checkbox"] {
+  accent-color: #4a90d9;
+}
+
+#view-toggle {
+  display: flex;
+  gap: 0;
+  flex-shrink: 0;
+}
+
+.view-btn {
+  padding: 8px 18px;
+  background: #fff;
+  border: 1px solid #ddd;
+  font-size: 13px;
+  cursor: pointer;
+  color: #555;
+  transition: background 0.15s, color 0.15s;
+}
+
+.view-btn:first-child {
+  border-radius: 6px 0 0 6px;
+}
+
+.view-btn:last-of-type {
+  border-radius: 0;
+}
+
+.view-btn:not(:first-child) {
+  border-left: none;
+}
+
+.view-btn.active {
+  background: #4a90d9;
+  color: #fff;
+  border-color: #4a90d9;
+}
+
+.view-btn:hover:not(.active) {
+  background: #e8f0fe;
+}
+
+.total-btn {
+  padding: 8px 18px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-left: none;
+  border-radius: 0 6px 6px 0;
+  font-size: 13px;
+  cursor: pointer;
+  color: #555;
+  transition: background 0.15s, color 0.15s;
+}
+
+.total-btn.active {
+  background: #333;
+  color: #fff;
+  border-color: #333;
+}
+
+.total-btn:hover:not(.active) {
+  background: #e8f0fe;
+}
+
+#chart-container {
+  position: relative;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 24px;
+  min-height: 350px;
+}
+
+#stats-chart {
+  width: 100%;
+  height: 300px;
+}
+
+#empty-state {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #999;
+  font-size: 14px;
+  text-align: center;
+}
+
+#legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 16px;
+  justify-content: center;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+}
+
+.legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+}

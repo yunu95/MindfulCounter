@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="stats.css">
+  <title>MindfulCounter - Stats</title>
+</head>
+<body>
+  <div class="container">
+    <h1>MindfulCounter Stats</h1>
+    <div id="controls">
+      <div id="counter-selector"></div>
+      <div id="view-toggle">
+        <button class="view-btn active" data-view="day">Day</button>
+        <button class="view-btn" data-view="week">Week</button>
+        <button class="view-btn" data-view="month">Month</button>
+        <button id="total-btn" class="total-btn">Total</button>
+      </div>
+    </div>
+    <div id="chart-container">
+      <canvas id="stats-chart"></canvas>
+      <div id="empty-state">No history data yet. Start incrementing counters to see stats here.</div>
+    </div>
+    <div id="legend"></div>
+  </div>
+  <script src="../lib/history.js"></script>
+  <script src="stats.js"></script>
+</body>
+</html>
