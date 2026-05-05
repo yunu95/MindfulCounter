@@ -82,13 +82,16 @@ function renderButtons(body) {
 }
 
 function setupDrag(panel) {
-  const header = panel.querySelector('#mc-panel-header');
   let isDragging = false;
   let offsetX = 0;
   let offsetY = 0;
 
-  header.addEventListener('mousedown', (e) => {
-    if (e.target.id === 'mc-toggle-btn') return;
+  const isInteractiveTarget = (target) => {
+    return target.closest('button, input, select, textarea, a, [role="button"]');
+  };
+
+  panel.addEventListener('mousedown', (e) => {
+    if (e.button !== 0 || isInteractiveTarget(e.target)) return;
     isDragging = true;
     const rect = panel.getBoundingClientRect();
     offsetX = e.clientX - rect.left;

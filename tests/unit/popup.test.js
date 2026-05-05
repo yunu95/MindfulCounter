@@ -13,6 +13,9 @@ describe('popup', () => {
           <button id="add-btn">+</button>
           <button id="reset-btn">Reset</button>
           <button id="stats-btn">Stats</button>
+          <a class="coffee-button" href="https://www.buymeacoffee.com/" target="_blank" rel="noopener noreferrer" aria-label="Buy me a coffee" title="Buy me a coffee">
+            <span aria-hidden="true">☕</span>
+          </a>
         </div>
       </div>
     `;
@@ -163,6 +166,16 @@ describe('popup', () => {
 
     document.getElementById('stats-btn').click();
     expect(createSpy).toHaveBeenCalledWith({ url: 'chrome-extension://fake-id/stats/stats.html' });
+  });
+
+  it('should include a coffee support link beside stats', () => {
+    const link = document.querySelector('.actions .coffee-button');
+    expect(link).not.toBeNull();
+    expect(link.textContent.trim()).toBe('☕');
+    expect(link.getAttribute('aria-label')).toBe('Buy me a coffee');
+    expect(link.getAttribute('href')).toBe('https://www.buymeacoffee.com/');
+    expect(link.getAttribute('target')).toBe('_blank');
+    expect(link.getAttribute('rel')).toBe('noopener noreferrer');
   });
 
   it('should rename a counter on blur and carry the count', async () => {

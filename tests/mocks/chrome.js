@@ -35,6 +35,25 @@ function createStorageArea(data) {
 }
 
 const chrome = {
+  alarms: {
+    _alarms: {},
+    create(name, options) {
+      chrome.alarms._alarms[name] = options;
+    },
+    clear(name, callback) {
+      delete chrome.alarms._alarms[name];
+      if (callback) callback(true);
+    },
+    onAlarm: {
+      _listeners: [],
+      addListener(fn) {
+        this._listeners.push(fn);
+      },
+      trigger(alarm) {
+        this._listeners.forEach((fn) => fn(alarm));
+      },
+    },
+  },
   tabs: {
     create(opts, callback) {
       if (callback) callback({ id: 1 });

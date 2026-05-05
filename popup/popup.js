@@ -25,11 +25,20 @@ function initPopup() {
   });
 
   document.getElementById('reset-btn').addEventListener('click', () => {
-    for (const key of Object.keys(counters)) {
-      counters[key] = 0;
-    }
-    save();
-    renderCounters();
+    const today = getLocalDateKey();
+    chrome.storage.local.get('counterHistory', (result) => {
+      const history = result.counterHistory || {};
+      for (const [key, count] of Object.entries(counters)) {
+        if (count > 0 && history[key] && history[key][today]) {
+          history[key][today] = Math.max(0, history[key][today] - count);
+          if (history[key][today] === 0) delete history[key][today];
+        }
+        counters[key] = 0;
+      }
+      chrome.storage.local.set({ counterHistory: history });
+      save();
+      renderCounters();
+    });
   });
 }
 

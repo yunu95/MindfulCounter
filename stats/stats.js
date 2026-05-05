@@ -9,6 +9,13 @@ let selectedCounters = new Set();
 let currentView = 'day';
 let showTotal = false;
 
+function getLocalDateKey(date = new Date()) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
 function init() {
   document.querySelectorAll('.view-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
@@ -74,7 +81,7 @@ function getDateRange(view) {
     for (let i = 29; i >= 0; i--) {
       const d = new Date(today);
       d.setDate(d.getDate() - i);
-      dates.push(d.toISOString().slice(0, 10));
+      dates.push(getLocalDateKey(d));
     }
   } else if (view === 'week') {
     for (let i = 11; i >= 0; i--) {
@@ -123,7 +130,7 @@ function aggregateData(counterName, view, dateRange, historyData) {
       let sum = 0;
       const cur = new Date(start);
       while (cur <= end) {
-        const key = cur.toISOString().slice(0, 10);
+        const key = getLocalDateKey(cur);
         sum += entries[key] || 0;
         cur.setDate(cur.getDate() + 1);
       }
@@ -309,5 +316,5 @@ window.addEventListener('resize', renderChart);
 document.addEventListener('DOMContentLoaded', init, { once: true });
 
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { aggregateData, getDateRange, getLabels, COLORS };
+  module.exports = { aggregateData, getDateRange, getLabels, getLocalDateKey, COLORS };
 }

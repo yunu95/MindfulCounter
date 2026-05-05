@@ -26,22 +26,21 @@ test.describe('MindfulCounter Extension', () => {
   });
 
   test.afterAll(async () => {
-    await context.close();
+    await context?.close();
   });
 
   test('extension should load without errors', async () => {
     expect(extensionId).toBeTruthy();
   });
 
-  test('popup should display correct message', async () => {
+  test('popup should display counters', async () => {
     const page = await context.newPage();
     await page.goto(`chrome-extension://${extensionId}/popup/popup.html`);
 
     const heading = page.locator('h1');
     await expect(heading).toHaveText('MindfulCounter');
 
-    const message = page.locator('#message');
-    await expect(message).toHaveText('Extension is running.');
+    await expect(page.locator('#counters-list .counter-row')).toHaveCount(6);
 
     await page.close();
   });

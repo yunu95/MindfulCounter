@@ -133,7 +133,7 @@ describe('panel', () => {
     expect(localSpy).toHaveBeenCalled();
     const call = localSpy.mock.calls.find((c) => c[0].counterHistory);
     expect(call).toBeDefined();
-    const today = new Date().toISOString().slice(0, 10);
+    const today = getLocalDateKey();
     expect(call[0].counterHistory.Test[today]).toBe(1);
 
     localSpy.mockRestore();
@@ -170,5 +170,69 @@ describe('panel', () => {
 
     const header = document.getElementById('mc-panel-header');
     expect(header).not.toBeNull();
+  });
+
+  it('should drag when the panel body background is dragged', async () => {
+    await import('../../content/panel.js');
+    await vi.waitFor(() => {
+      expect(document.getElementById('mc-panel')).not.toBeNull();
+    });
+
+    const panel = document.getElementById('mc-panel');
+    const body = document.getElementById('mc-panel-body');
+
+    vi.spyOn(panel, 'getBoundingClientRect').mockReturnValue({
+      left: 20,
+      top: 30,
+      right: 260,
+      bottom: 180,
+      width: 240,
+      height: 150,
+      x: 20,
+      y: 30,
+      toJSON: () => {},
+    });
+
+    body.dispatchEvent(new MouseEvent('mousedown', {
+      bubbles: true,
+      button: 0,
+      clientX: 40,
+      clientY: 55,
+    }));
+    document.dispatchEvent(new MouseEvent('mousemove', {
+      bubbles: true,
+      clientX: 100,
+      clientY: 130,
+    }));
+
+    expect(panel.style.left).toBe('80px');
+    expect(panel.style.top).toBe('105px');
+    expect(panel.style.right).toBe('auto');
+    expect(panel.style.bottom).toBe('auto');
+  });
+
+  it('should not drag when a counter button is pressed', async () => {
+    await import('../../content/panel.js');
+    await vi.waitFor(() => {
+      expect(document.getElementById('mc-panel')).not.toBeNull();
+    });
+
+    const panel = document.getElementById('mc-panel');
+    const btn = document.querySelector('.mc-counter-btn');
+
+    btn.dispatchEvent(new MouseEvent('mousedown', {
+      bubbles: true,
+      button: 0,
+      clientX: 40,
+      clientY: 55,
+    }));
+    document.dispatchEvent(new MouseEvent('mousemove', {
+      bubbles: true,
+      clientX: 100,
+      clientY: 130,
+    }));
+
+    expect(panel.style.left).toBe('');
+    expect(panel.style.top).toBe('');
   });
 });

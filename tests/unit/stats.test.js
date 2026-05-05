@@ -69,10 +69,10 @@ describe('stats aggregation', () => {
   });
 
   it('should aggregate daily counts correctly', () => {
-    const today = new Date().toISOString().slice(0, 10);
+    const range = getDateRange('day');
+    const today = range.at(-1);
     const historyData = { Test: { [today]: 5 } };
 
-    const range = getDateRange('day');
     const values = aggregateData('Test', 'day', range, historyData);
     expect(values.length).toBe(30);
     expect(values[values.length - 1]).toBe(5);

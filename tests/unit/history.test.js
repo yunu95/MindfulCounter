@@ -13,7 +13,7 @@ describe('history', () => {
       : null;
 
     chrome.storage.local.get('counterHistory', (result) => {
-      const today = new Date().toISOString().slice(0, 10);
+      const today = getLocalDateKey();
       expect(result.counterHistory.Test[today]).toBe(1);
     });
   });
@@ -24,7 +24,7 @@ describe('history', () => {
     recordIncrement('Test');
 
     chrome.storage.local.get('counterHistory', (result) => {
-      const today = new Date().toISOString().slice(0, 10);
+      const today = getLocalDateKey();
       expect(result.counterHistory.Test[today]).toBe(3);
     });
   });

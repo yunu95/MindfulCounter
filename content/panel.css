@@ -58,6 +58,12 @@
   gap: 6px;
   max-height: calc(80vh - 40px);
   overflow-y: auto;
+  cursor: grab;
+  user-select: none;
+}
+
+#mc-panel-body:active {
+  cursor: grabbing;
 }
 
 #mc-panel.mc-collapsed #mc-panel-body {
@@ -127,4 +133,3 @@
   font-weight: 700;
   color: #1a1a1a;
 }
-

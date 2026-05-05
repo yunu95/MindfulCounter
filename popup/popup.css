@@ -86,6 +86,38 @@ h1 {
   justify-content: center;
 }
 
+.coffee-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: #ffdd00;
+  border: 1px solid #e6c700;
+  border-radius: 6px;
+  color: #111;
+  font-size: 16px;
+  text-decoration: none;
+  box-shadow: 0 2px 0 #d0b500;
+  transition: transform 0.12s, box-shadow 0.12s, background 0.12s;
+}
+
+.coffee-button:hover {
+  background: #ffe34d;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 0 #d0b500;
+}
+
+.coffee-button:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 0 #d0b500;
+}
+
+.coffee-button:focus-visible {
+  outline: 3px solid #4a90d9;
+  outline-offset: 2px;
+}
+
 #add-btn {
   padding: 6px 16px;
   background: #4a90d9;

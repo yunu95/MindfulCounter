@@ -3,7 +3,7 @@
   "name": "MindfulCounter",
   "version": "1.0.0",
   "description": "A mindful counter browser extension.",
-  "permissions": ["storage"],
+  "permissions": ["storage", "alarms"],
   "action": {
     "default_popup": "popup/popup.html",
     "default_icon": {
