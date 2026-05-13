@@ -1,4 +1,4 @@
-const COLORS = [
+﻿const COLORS = [
   '#4a90d9', '#e74c3c', '#2ecc71', '#f39c12', '#9b59b6',
   '#1abc9c', '#e67e22', '#3498db', '#e84393', '#00b894',
 ];

@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+﻿import { describe, it, expect, beforeEach, vi } from 'vitest';
 
 describe('panel', () => {
   beforeEach(() => {
@@ -26,7 +26,7 @@ describe('panel', () => {
     });
 
     const labels = document.querySelectorAll('.mc-counter-btn .mc-counter-label');
-    const expected = ['mana (मान)', 'dvesa (द्वेष)', 'tanha (तण्हा)', 'viksepa (विक्षेप)', 'bhaya (भय)', 'prapanca (प्रपञ्च)'];
+    const expected = ['mana (西?ㅎ西?', 'dvesa (西╆쪓西듀쪍西?', 'tanha (西ㅰㄳ誓띭ㅉ西?', 'viksepa (西듀ㅏ西뺖쪓西룅쪍西?', 'bhaya (西?ㄿ)', 'prapanca (西む쪓西겯ㄺ西왽쪓西?'];
     labels.forEach((el, i) => {
       expect(el.textContent).toBe(expected[i]);
     });

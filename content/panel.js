@@ -1,5 +1,10 @@
-const DEFAULT_COUNTERS = {
-  'mana (मान)': 0, 'dvesa (द्वेष)': 0, 'tanha (तण्हा)': 0, 'viksepa (विक्षेप)': 0, 'bhaya (भय)': 0, 'prapanca (प्रपञ्च)': 0,
+﻿const DEFAULT_COUNTERS = {
+  'mana (मान)': 0,
+  'dvesa (द्वेष)': 0,
+  'tanha (तण्हा)': 0,
+  'viksepa (विक्षेप)': 0,
+  'bhaya (भय)': 0,
+  'prapanca (प्रपञ्च)': 0,
 };
 
 let counters = {};
@@ -46,17 +51,6 @@ function renderButtons(body) {
     btn.className = 'mc-counter-btn';
     btn.dataset.label = label;
 
-    const remove = document.createElement('span');
-    remove.className = 'mc-counter-remove';
-    remove.textContent = '×';
-    remove.addEventListener('click', (e) => {
-      e.stopPropagation();
-      delete counters[label];
-      chrome.storage.sync.set({ counters: { ...counters } });
-      deleteHistoryKey(label);
-      renderButtons(body);
-    });
-
     const labelEl = document.createElement('span');
     labelEl.className = 'mc-counter-label';
     labelEl.textContent = label;
@@ -65,7 +59,6 @@ function renderButtons(body) {
     value.className = 'mc-counter-value';
     value.textContent = count;
 
-    btn.appendChild(remove);
     btn.appendChild(labelEl);
     btn.appendChild(value);
     body.appendChild(btn);
@@ -83,16 +76,21 @@ function renderButtons(body) {
 
 function setupDrag(panel) {
   let isDragging = false;
+  let startX = 0;
+  let startY = 0;
   let offsetX = 0;
   let offsetY = 0;
-
-  const isInteractiveTarget = (target) => {
-    return target.closest('button, input, select, textarea, a, [role="button"]');
-  };
+  let hasMovedEnough = false;
+  const DRAG_THRESHOLD = 5; // pixels
 
   panel.addEventListener('mousedown', (e) => {
-    if (e.button !== 0 || isInteractiveTarget(e.target)) return;
+    if (e.button !== 0) return;
+    
+    startX = e.clientX;
+    startY = e.clientY;
     isDragging = true;
+    hasMovedEnough = false;
+    
     const rect = panel.getBoundingClientRect();
     offsetX = e.clientX - rect.left;
     offsetY = e.clientY - rect.top;
@@ -101,8 +99,26 @@ function setupDrag(panel) {
 
   document.addEventListener('mousemove', (e) => {
     if (!isDragging) return;
-    const x = e.clientX - offsetX;
-    const y = e.clientY - offsetY;
+    
+    // Check if mouse has moved beyond threshold
+    const distX = Math.abs(e.clientX - startX);
+    const distY = Math.abs(e.clientY - startY);
+    if (distX > DRAG_THRESHOLD || distY > DRAG_THRESHOLD) {
+      hasMovedEnough = true;
+    }
+    
+    // Only move panel if threshold has been exceeded
+    if (!hasMovedEnough) return;
+    
+    let x = e.clientX - offsetX;
+    let y = e.clientY - offsetY;
+    
+    // Constrain to window bounds
+    const maxX = window.innerWidth - panel.offsetWidth;
+    const maxY = window.innerHeight - panel.offsetHeight;
+    x = Math.max(0, Math.min(x, maxX));
+    y = Math.max(0, Math.min(y, maxY));
+    
     panel.style.left = x + 'px';
     panel.style.top = y + 'px';
     panel.style.right = 'auto';
@@ -112,18 +128,27 @@ function setupDrag(panel) {
   document.addEventListener('mouseup', () => {
     if (!isDragging) return;
     isDragging = false;
-    panel.style.transition = '';
-    const rect = panel.getBoundingClientRect();
-    chrome.storage.local.set({
-      panelPosition: { x: rect.left, y: rect.top },
-    });
+    
+    if (hasMovedEnough) {
+      panel.style.transition = '';
+      const rect = panel.getBoundingClientRect();
+      chrome.storage.local.set({
+        panelPosition: { x: rect.left, y: rect.top },
+      });
+    }
   });
 }
 
 function restorePosition(panel, position) {
   if (position && position.x != null && position.y != null) {
-    panel.style.left = position.x + 'px';
-    panel.style.top = position.y + 'px';
+    // Constrain restored position to window bounds
+    const maxX = window.innerWidth - panel.offsetWidth;
+    const maxY = window.innerHeight - panel.offsetHeight;
+    const x = Math.max(0, Math.min(position.x, maxX));
+    const y = Math.max(0, Math.min(position.y, maxY));
+    
+    panel.style.left = x + 'px';
+    panel.style.top = y + 'px';
     panel.style.right = 'auto';
     panel.style.bottom = 'auto';
   }

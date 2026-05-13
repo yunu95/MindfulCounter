@@ -1,4 +1,4 @@
-const localData = {};
+﻿const localData = {};
 const syncData = {};
 const onChangedListeners = [];
 

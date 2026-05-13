@@ -1,4 +1,4 @@
-import { test, expect, chromium } from '@playwright/test';
+﻿import { test, expect, chromium } from '@playwright/test';
 import path from 'path';
 
 const extensionPath = path.resolve('.');

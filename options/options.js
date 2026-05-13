@@ -1,5 +1,10 @@
-const DEFAULT_COUNTERS = {
-  'mana (मान)': 0, 'dvesa (द्वेष)': 0, 'tanha (तण्हा)': 0, 'viksepa (विक्षेप)': 0, 'bhaya (भय)': 0, 'prapanca (प्रपञ्च)': 0,
+﻿const DEFAULT_COUNTERS = {
+  'mana (मान)': 0,
+  'dvesa (द्वेष)': 0,
+  'tanha (तण्हा)': 0,
+  'viksepa (विक्षेप)': 0,
+  'bhaya (भय)': 0,
+  'prapanca (प्रपञ्च)': 0,
 };
 
 let originalCounters = {};
@@ -47,7 +52,7 @@ function addRow(label, count) {
   const removeBtn = document.createElement('button');
   removeBtn.type = 'button';
   removeBtn.className = 'remove-btn';
-  removeBtn.textContent = '×';
+  removeBtn.textContent = '횞';
   removeBtn.addEventListener('click', () => {
     row.remove();
   });

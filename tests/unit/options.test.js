@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+﻿import { describe, it, expect, beforeEach, vi } from 'vitest';
 
 describe('options', () => {
   beforeEach(() => {
@@ -45,8 +45,8 @@ describe('options', () => {
     });
 
     const inputs = document.querySelectorAll('.counter-label-input');
-    expect(inputs[0].value).toBe('mana (मान)');
-    expect(inputs[5].value).toBe('prapanca (प्रपञ्च)');
+    expect(inputs[0].value).toBe('mana (西?ㅎ西?');
+    expect(inputs[5].value).toBe('prapanca (西む쪓西겯ㄺ西왽쪓西?');
   });
 
   it('should render rows from sync storage', async () => {

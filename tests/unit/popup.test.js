@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+﻿import { describe, it, expect, beforeEach, vi } from 'vitest';
 
 describe('popup', () => {
   beforeEach(() => {
@@ -14,7 +14,7 @@ describe('popup', () => {
           <button id="reset-btn">Reset</button>
           <button id="stats-btn">Stats</button>
           <a class="coffee-button" href="https://www.buymeacoffee.com/" target="_blank" rel="noopener noreferrer" aria-label="Buy me a coffee" title="Buy me a coffee">
-            <span aria-hidden="true">☕</span>
+            <span aria-hidden="true">??/span>
           </a>
         </div>
       </div>
@@ -31,8 +31,8 @@ describe('popup', () => {
     });
 
     const inputs = document.querySelectorAll('.counter-name-input');
-    expect(inputs[0].value).toBe('mana (मान)');
-    expect(inputs[5].value).toBe('prapanca (प्रपञ्च)');
+    expect(inputs[0].value).toBe('mana (西?ㅎ西?');
+    expect(inputs[5].value).toBe('prapanca (西む쪓西겯ㄺ西왽쪓西?');
   });
 
   it('should render counters from sync storage', async () => {
@@ -171,7 +171,7 @@ describe('popup', () => {
   it('should include a coffee support link beside stats', () => {
     const link = document.querySelector('.actions .coffee-button');
     expect(link).not.toBeNull();
-    expect(link.textContent.trim()).toBe('☕');
+    expect(link.textContent.trim()).toBe('??);
     expect(link.getAttribute('aria-label')).toBe('Buy me a coffee');
     expect(link.getAttribute('href')).toBe('https://www.buymeacoffee.com/');
     expect(link.getAttribute('target')).toBe('_blank');

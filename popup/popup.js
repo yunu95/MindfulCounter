@@ -1,5 +1,10 @@
-const DEFAULT_COUNTERS = {
-  'mana (मान)': 0, 'dvesa (द्वेष)': 0, 'tanha (तण्हा)': 0, 'viksepa (विक्षेप)': 0, 'bhaya (भय)': 0, 'prapanca (प्रपञ्च)': 0,
+﻿const DEFAULT_COUNTERS = {
+  'mana (मान)': 0,
+  'dvesa (द्वेष)': 0,
+  'tanha (तण्हा)': 0,
+  'viksepa (विक्षेप)': 0,
+  'bhaya (भय)': 0,
+  'prapanca (प्रपञ्च)': 0,
 };
 
 let counters = {};
@@ -78,7 +83,7 @@ function renderCounters() {
 
     const remove = document.createElement('button');
     remove.className = 'counter-remove';
-    remove.textContent = '×';
+    remove.textContent = '횞';
     remove.title = 'Remove counter';
     remove.addEventListener('click', () => {
       delete counters[label];

@@ -1,0 +1,17 @@
+# Ensure all text files are treated as UTF-8
+* text=auto
+
+# Explicitly set UTF-8 for source files
+*.js text eol=lf charset=utf-8
+*.json text eol=lf charset=utf-8
+*.html text eol=lf charset=utf-8
+*.css text eol=lf charset=utf-8
+*.md text eol=lf charset=utf-8
+*.ps1 text eol=crlf charset=utf-8
+
+# Binary files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
