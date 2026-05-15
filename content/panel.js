@@ -38,6 +38,11 @@ function createPanel(data) {
   body.id = 'mc-panel-body';
   panel.appendChild(body);
 
+  // Add resize handle
+  const resizeHandle = document.createElement('div');
+  resizeHandle.id = 'mc-resize-handle';
+  panel.appendChild(resizeHandle);
+
   renderButtons(body);
   return panel;
 }
@@ -71,11 +76,11 @@ function renderButtons(body) {
       recordIncrement(label);
     });
   }
-
 }
 
 function setupDrag(panel) {
   let isDragging = false;
+  let isResizing = false;
   let startX = 0;
   let startY = 0;
   let offsetX = 0;
@@ -83,7 +88,14 @@ function setupDrag(panel) {
   let hasMovedEnough = false;
   const DRAG_THRESHOLD = 5; // pixels
 
+  // Drag functionality
   panel.addEventListener('mousedown', (e) => {
+    // Check if clicking on resize handle
+    if (e.target.id === 'mc-resize-handle') {
+      startResize(e);
+      return;
+    }
+
     if (e.button !== 0) return;
     
     startX = e.clientX;
@@ -97,8 +109,65 @@ function setupDrag(panel) {
     panel.style.transition = 'none';
   });
 
+  function startResize(e) {
+    isResizing = true;
+    const rect = panel.getBoundingClientRect();
+    startX = e.clientX;
+    startY = e.clientY;
+    const startWidth = rect.width;
+    const startHeight = rect.height;
+
+    function doResize(e) {
+      const deltaX = e.clientX - startX;
+      const deltaY = e.clientY - startY;
+      
+      let newWidth = startWidth + deltaX;
+      let newHeight = startHeight + deltaY;
+      
+      // Hard minimum constraints
+      newWidth = Math.max(160, Math.min(newWidth, window.innerWidth - 10));
+      newHeight = Math.max(80, Math.min(newHeight, window.innerHeight - 10));
+      
+      // Temporarily set size to check if all buttons fit
+      panel.style.width = newWidth + 'px';
+      panel.style.height = newHeight + 'px';
+      
+      // Check if content overflows
+      const body = document.getElementById('mc-panel-body');
+      const header = document.getElementById('mc-panel-header');
+      if (body && header) {
+        const bodyScrollHeight = body.scrollHeight;
+        const bodyHeight = body.offsetHeight;
+        const bodyScrollWidth = body.scrollWidth;
+        const bodyWidth = body.offsetWidth;
+        
+        // If buttons overflow, revert to previous size
+        if (bodyScrollHeight > bodyHeight || bodyScrollWidth > bodyWidth) {
+          panel.style.width = startWidth + 'px';
+          panel.style.height = startHeight + 'px';
+        }
+      }
+    }
+
+    function stopResize() {
+      if (!isResizing) return;
+      isResizing = false;
+      document.removeEventListener('mousemove', doResize);
+      document.removeEventListener('mouseup', stopResize);
+      
+      // Save the new size
+      const rect = panel.getBoundingClientRect();
+      chrome.storage.local.set({
+        panelSize: { width: rect.width, height: rect.height },
+      });
+    }
+
+    document.addEventListener('mousemove', doResize);
+    document.addEventListener('mouseup', stopResize);
+  }
+
   document.addEventListener('mousemove', (e) => {
-    if (!isDragging) return;
+    if (!isDragging || isResizing) return;
     
     // Check if mouse has moved beyond threshold
     const distX = Math.abs(e.clientX - startX);
@@ -154,14 +223,22 @@ function restorePosition(panel, position) {
   }
 }
 
+function restoreSize(panel, size) {
+  if (size && size.width != null && size.height != null) {
+    panel.style.width = size.width + 'px';
+    panel.style.height = size.height + 'px';
+  }
+}
+
 function init() {
   chrome.storage.sync.get('counters', (syncResult) => {
     const data = syncResult.counters || { ...DEFAULT_COUNTERS };
 
-    chrome.storage.local.get('panelPosition', (localResult) => {
+    chrome.storage.local.get(['panelPosition', 'panelSize'], (localResult) => {
       const panel = createPanel(data);
       document.body.appendChild(panel);
       restorePosition(panel, localResult.panelPosition);
+      restoreSize(panel, localResult.panelSize);
       setupDrag(panel);
     });
   });

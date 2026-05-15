@@ -9,6 +9,11 @@
 <body>
   <div class="container">
     <h1>MindfulCounter</h1>
+    <div class="settings">
+      <label for="button-size">Button Size:</label>
+      <input type="range" id="button-size" min="80" max="240" step="16" value="160">
+      <span id="button-size-display">160px × 112px</span>
+    </div>
     <div id="counters-list"></div>
     <div class="actions">
       <button id="add-btn" title="Add counter">+</button>

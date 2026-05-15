@@ -103,4 +103,13 @@ function save() {
   chrome.storage.sync.set({ counters: { ...counters } });
 }
 
-document.addEventListener('DOMContentLoaded', initPopup, { once: true });
+document.addEventListener('DOMContentLoaded', () => {
+  // Check if the window is a popup or does not have a tab
+  if (window.opener || !window.location.href) {
+    console.log('Popup or window without a tab detected. Hovering window will not be displayed.');
+    return;
+  }
+
+  // Initialize the popup if not a popup window or window without a tab
+  initPopup();
+}, { once: true });
