@@ -125,7 +125,7 @@ function setupDrag(panel) {
       let newHeight = startHeight + deltaY;
       
       // Hard minimum constraints
-      newWidth = Math.max(160, Math.min(newWidth, window.innerWidth - 10));
+      newWidth = Math.max(96, Math.min(newWidth, window.innerWidth - 10));
       newHeight = Math.max(80, Math.min(newHeight, window.innerHeight - 10));
       
       // Temporarily set size to check if all buttons fit
